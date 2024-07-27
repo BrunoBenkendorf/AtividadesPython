@@ -32,6 +32,8 @@ while True:
         calculo = tempo * 0.15
     elif origem == 47 and destino == 48:
         calculo = tempo * 0.25
+    elif origem == 47 and destino == 49:
+        calculo = tempo * 0.32
     elif origem == 48 and destino == 47:
         calculo = tempo * 0.28
     elif origem == 48 and destino == 48:
@@ -57,10 +59,10 @@ while True:
     })
 
     print("""
-          _______________________________________   
-         |                                       |
-         |      Fatura mensal de: R$ {:.2f}      |
-         |_______________________________________|   
+          __________________________________________  
+         |                                          |
+         |      Fatura mensal de: R$ {:.2f}        |
+         |__________________________________________|   
         """.format(calculo))
 
     print("\nÚltimos 5 resultados:")
