@@ -10,6 +10,7 @@ def fatorial(n, resultado=1):
         return fatorial(n - 1, n * resultado)
 def raiz(n):
     return n**0.5
+resultados = []
 while True:
     os.system('cls' if os.name == 'nt' else 'clear')
     print('''
@@ -61,6 +62,14 @@ while True:
         print("Resultado:", fatorial(num1), " / ", raiz(num2)," = ",res)
     else:
         print("Os numeros não atendem aos requisitos")
+
+    resultados.append({'res' : res})
+    for res in resultados:
+        if res == 0:
+            print("Nenhum dado disponível")
+        else:
+            print(f"Resultados: {res['res']}")
+
     continuar = input("\nDeseja continuar? (s/n): ")
     os.system('cls' if os.name == 'nt' else 'clear')
     if continuar != 's':
