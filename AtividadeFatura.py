@@ -29,7 +29,7 @@ while True:
     destino = int(input("Digite o DDD de destino: "))
     tempo = int(input("Digite o tempo de ligação em minutos por mês: "))
 
-    if origem == 47 and destino == 47:
+    if origem == 47  and  destino == 47:
         calculo = tempo * 0.15
     elif origem == 47 and destino == 48:
         calculo = tempo * 0.25
