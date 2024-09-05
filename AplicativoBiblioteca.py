@@ -35,7 +35,7 @@ def exibir_livros(livros_lista):
 
 livros.append(Livro("O Codificador Limpo", "Robert C. Martin", "Alta Books", "2012"))
 livros.append(Livro("Effective Java", "Joshua Bloch", "Addison-Wesley", "2018"))
-livros.append(Livro("Introduction to the Theory of Computation", "Michael Sipser", "Cengage Learning", "2012"))
+livros.append(Livro("Algorithms", "Robert Sedgewick, Kevin Wayne", "Addison-Wesley", "2011"))
 livros.append(Livro("The Pragmatic Programmer", "Andrew Hunt, David Thomas", "Addison-Wesley", "1999"))
  
 limpa()
