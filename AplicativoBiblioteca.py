@@ -57,7 +57,7 @@ while menu != 5:
           2-Adicionar
           3-Livros da Biblioteca
           4-Alocar Livro
-          6-Encerrar
+          5-Encerrar
           """)
     menu = int(input("-> "))
     
