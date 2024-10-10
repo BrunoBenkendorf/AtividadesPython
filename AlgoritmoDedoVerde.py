@@ -16,8 +16,30 @@ class Planta:
         self.caracteristica = caracteristica
         self.flor = flor
         self.fruto = fruto
-    def Regar(self):
-        return "A planta foi regada"
+        self.molhado = 0
+    def Regar(self, dias_regados, dias_maximos):
+        self.molhado += dias_regados
+        if self.molhado < dias_maximos:
+            return print("Você deve regar",self.nome ,"por mais ",dias_maximos - self.molhado, "dias.")
+        else:
+            self.molhado = self.molhar_Max
+            return print("A planta ja foi molhada o suficiente")
+def Regar_Tipo():
+    escolha = int(input("Escolha qual planta deseja Regar:(1-Frutas|2-Verduras|3-Legumes)"))
+    nome = input("Digite o nome da planta: ")
+    dias_regados = int(input("Digite os dias que foram regados usando(Numeros):"))
+    dias_maximos = int(input("Digite os dias maximos que essa planta pode ser regada: "))
+    planta = None
+    if escolha == 1:
+        planta = pesquisar_frutas(frutas, nome)
+    elif escolha == 2:
+        planta = pesquisar_verduras(verduras, nome)
+    elif escolha == 3:
+        planta = pesquisar_legumes(legumes, nome)
+    if planta:
+        planta.Regar(dias_regados,dias_maximos)
+    else:
+        print("Planta não encontrada")
 class Fruta(Planta):
     def __init__(self,nome,ambiente,vegetacao,caracteristica,flor,fruto,sabor):
         super().__init__(nome,ambiente,vegetacao,caracteristica,flor,fruto)
@@ -153,6 +175,7 @@ while menu != 5:
                         print("Legume não encontrado")
         case 4:
             limpa()
+            Regar_Tipo()
         case 5:
             limpa()
             print("Obrigado por utilizar o sistema")
