@@ -56,6 +56,10 @@ while menu != 5:
 
         case 3:
             if lista_palavras:
+                print("Palavras cadastradas:")
+                for i, palavra in enumerate(lista_palavras_criptografadas):
+                    print(f"{i + 1} - {palavra}")
+            if lista_palavras:
                 criptografado = input("Digite a palavra criptografada: ")
                 descriptador = int(input("Digite o cod chave para descriptografar: "))
                 descriptado = cripto(criptografado, descriptador, MODE_DECRYPT)
