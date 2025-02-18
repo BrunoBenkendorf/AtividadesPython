@@ -175,37 +175,73 @@ def carregar_clientes_banco():
         print("Erro ao carregar clientes do banco")
 
 def pesquisa_cliente():
-    tipo_regiao = input("Digite a região do cliente que deseja pesquisar: (NORTE, NORDESTE, CENTRO-OESTE, SUL, SUDESTE): ").strip().upper()
+    print("Escolha uma opção de pesquisa:")
+    print("1 - Pesquisar por região")
+    print("2 - Pesquisar por status de cadastro (ATIVO/INATIVO/INADIMPLENTE)")
+    opcao = input("Digite o número da opção: ").strip()
 
-    estados_por_regiao = {
-        "NORTE": ["AC", "AM", "AP", "PA", "RO", "RR", "TO"],
-        "NORDESTE": ["AL", "BA", "CE", "MA", "PB", "PE", "PI", "RN", "SE", "BA"],
-        "CENTRO-OESTE": ["DF", "GO", "MS", "MT"],
-        "SUL": ["PR", "RS", "SC"],
-        "SUDESTE": ["ES", "MG", "RJ", "SP"]
-    }
+    if opcao == '1':
+        tipo_regiao = input("Digite a região do cliente que deseja pesquisar: (NORTE, NORDESTE, CENTRO-OESTE, SUL, SUDESTE): ").strip().upper()
 
-    if tipo_regiao not in estados_por_regiao:
-        print("Região inválida! Tente novamente.")
-        return
-    
-    estados = estados_por_regiao[tipo_regiao]
+        estados_por_regiao = {
+            "NORTE": ["AC", "AM", "AP", "PA", "RO", "RR", "TO"],
+            "NORDESTE": ["AL", "BA", "CE", "MA", "PB", "PE", "PI", "RN", "SE", "BA"],
+            "CENTRO-OESTE": ["DF", "GO", "MS", "MT"],
+            "SUL": ["PR", "RS", "SC"],
+            "SUDESTE": ["ES", "MG", "RJ", "SP"]
+        }
 
-    try:
-        with conn.cursor() as cursor:
-            estado_placeholder = ', '.join(["%s"] * len(estados))  
-            sql = f"SELECT * FROM clientes WHERE estado IN ({estado_placeholder})"
-            cursor.execute(sql, estados)
-            clientes_encontrados = cursor.fetchall()
-            
-            if clientes_encontrados:
-                print(f"{'CPF':<14} {'Nome':<30} {'Email':<50} {'Telefone':<14}{'Cadastro':<14}{'Estado':<7}{'Cidade':<15}{'Rua':<0}")
-                for cliente in clientes_encontrados:
-                    print(f"{cliente['cpf']:<14} {cliente['nome_cliente']:<30} {cliente['email_cliente']:<50} {cliente['telefone_cliente']:<14} {cliente['cadastro']:<14}{cliente['estado']:<7}{cliente['cidade']:<15}{cliente['rua']:<0}")
-            else:
-                print(f"Nenhum cliente encontrado na região '{tipo_regiao}'.")
-    except Exception as e:
-        print(f"Erro ao pesquisar clientes: {e}")
+        if tipo_regiao not in estados_por_regiao:
+            print("Região inválida! Tente novamente.")
+            return
+        
+        estados = estados_por_regiao[tipo_regiao]
+
+        try:
+            with conn.cursor() as cursor:
+                estado_placeholder = ', '.join(["%s"] * len(estados))  
+                sql = f"SELECT * FROM clientes WHERE estado IN ({estado_placeholder})"
+                cursor.execute(sql, estados)
+                clientes_encontrados = cursor.fetchall()
+                
+                if clientes_encontrados:
+                    print(f"\n{'CPF':<14} {'Nome':<30} {'Email':<50} {'Telefone':<14} {'Cadastro':<14} {'Estado':<7} {'Cidade':<15} {'Bairro':<15} {'Rua':<30} {'Cep':<10}")
+                    print("-" * 230)  
+                    for cliente in clientes_encontrados:
+                        print(f"{cliente['cpf']:<14} {cliente['nome_cliente']:<30} {cliente['email_cliente']:<50} {cliente['telefone_cliente']:<14} {cliente['cadastro']:<14} {cliente['estado']:<7} {cliente['cidade']:<15} {cliente['bairro']:<15} {cliente['rua']:<30} {cliente['cep']:<10}")
+                    print("-" * 230)
+                else:
+                    print(f"Nenhum cliente encontrado na região '{tipo_regiao}'.")
+        except Exception as e:
+            print(f"Erro ao pesquisar clientes: {e}")
+
+    elif opcao == '2':
+        tipo_cadastro = input("Digite o status de cadastro do cliente que deseja pesquisar (ATIVO/INATIVO/INADIMPLENTE): ").strip().upper()
+        
+        if tipo_cadastro not in ['ATIVO', 'INATIVO', 'INADIMPLENTE']:
+            print("Status de cadastro inválido! Digite 'ATIVO' OU 'INATIVO' OU 'INADIMPLENTE'.")
+            return
+        
+        try:
+            with conn.cursor() as cursor:
+                sql = "SELECT * FROM clientes WHERE cadastro = %s"
+                cursor.execute(sql, (tipo_cadastro,))
+                clientes_encontrados = cursor.fetchall()
+                
+                if clientes_encontrados:
+                    print(f"\n{'CPF':<14} {'Nome':<30} {'Email':<50} {'Telefone':<14} {'Cadastro':<14} {'Estado':<7} {'Cidade':<15} {'Bairro':<15} {'Rua':<30} {'Cep':<10}")
+                    print("-" * 230)
+                    for cliente in clientes_encontrados:
+                        print(f"{cliente['cpf']:<14} {cliente['nome_cliente']:<30} {cliente['email_cliente']:<50} {cliente['telefone_cliente']:<14} {cliente['cadastro']:<14} {cliente['estado']:<7} {cliente['cidade']:<15} {cliente['bairro']:<15} {cliente['rua']:<30} {cliente['cep']:<10}")
+                    print("-" * 230)
+                else:
+                    print(f"Nenhum cliente encontrado com o status de cadastro '{tipo_cadastro}'.")
+        except Exception as e:
+            print(f"Erro ao pesquisar clientes: {e}")
+
+    else:
+        print("Opção inválida! Tente novamente.")
+
 
 carregar_clientes_banco()
 
@@ -353,14 +389,145 @@ def pesquisa_fornecedor():
             fornecedores_encontrados = cursor.fetchall()
             
             if fornecedores_encontrados:
-                print(f"{'CNPJ':<18} {'Nome':<30} {'Tipo':<14} {'Email':<35}{'Telefone':<21}{'Prazo de Pagamento':<15}")
+                print(f"\n{'CNPJ':<18} {'Nome':<30} {'Tipo':<14} {'Email':<35} {'Telefone':<21} {'Prazo de Pagamento':<15}")
+                print("-" * 230)
                 for fornecedor in fornecedores_encontrados:
-                    print(f"{fornecedor['cnpj']:<18} {fornecedor['nome_fornecedor']:<30} {fornecedor['tipo_fornecedor']:<14} {fornecedor['email_fornecedor']:<34} {fornecedor['telefone_fornecedor']:<21}{fornecedor['prazo_pagamento']:<30}")
+                    print(f"{fornecedor['cnpj']:<18} {fornecedor['nome_fornecedor']:<30} {fornecedor['tipo_fornecedor']:<14} {fornecedor['email_fornecedor']:<34} {fornecedor['telefone_fornecedor']:<21} {fornecedor['prazo_pagamento']:<15}")
+                print("-" * 230)
             else:
                 print(f"Nenhum fornecedor encontrado com o tipo '{tipo_fornecedor}'.")
     except Exception as e:
         print(f"Erro ao pesquisar fornecedor no banco: {e}")
 
+
 carregar_fornecedores_banco()
 limpa()
-cadastrar_cliente()
+def main_menu():
+    while True:    
+        print("""
+        -------------------------------------------
+        |1- CLIENTES                              |
+        |2- FORNECEDORES                          |
+        |3- ENCERRAR                              |
+        -------------------------------------------
+        """)                   
+        
+        try:
+            menu = int(input("-> "))
+            if menu < 1 or menu > 3:
+                raise ValueError
+        except ValueError:
+            limpa()
+            print("Erro: Opção inválida! Digite um número entre 1 e 3.")
+            continue    
+
+        if menu == 1:
+            menu_cliente()
+        elif menu == 2:
+            menu_fornecedor()
+        elif menu == 3:
+            break
+
+def menu_cliente():
+    while True:
+        print("""
+        -------------------------------------------
+        |1- Adicionar                             |
+        |2- Visualizar                            |
+        |3- Alterar                               |
+        |4- Remover                               |
+        |5- Pesquisar                             |
+        |6- Retornar                              |
+        -------------------------------------------
+        """) 
+        
+        try:
+            menu = int(input("-> "))
+            if menu < 1 or menu > 6:
+                raise ValueError
+        except ValueError:
+            limpa()
+            print("Erro: Opção inválida! Digite um número entre 1 e 6.")
+            continue    
+
+        match menu:
+            case 1:
+                limpa()
+                cadastrar_cliente()
+                input()
+                limpa()
+            case 2:
+                limpa()
+                exibir_clientes()
+                input()
+                limpa()
+            case 3:
+                limpa()
+                alterar_cliente_banco()
+                input()
+                limpa()
+            case 4:
+                limpa()
+                remover_cliente_banco()
+                input()
+                limpa()
+            case 5:
+                limpa()
+                pesquisa_cliente()
+                input()
+                limpa()
+            case 6:
+                break
+
+def menu_fornecedor():
+    while True:
+        print("""
+        -------------------------------------------
+        |1- Adicionar                             |
+        |2- Visualizar                            |
+        |3- Alterar                               |
+        |4- Remover                               |
+        |5- Pesquisar                             |
+        |6- Retornar                              |
+        -------------------------------------------
+        """) 
+        
+        try:
+            menu = int(input("-> "))
+            if menu < 1 or menu > 6:
+                raise ValueError
+        except ValueError:
+            limpa()
+            print("Erro: Opção inválida! Digite um número entre 1 e 6.")
+            continue    
+
+        match menu:
+            case 1:
+                limpa()
+                cadastrar_fornecedor()
+                input()
+                limpa()
+            case 2:
+                limpa()
+                exibir_fornecedor()
+                input()
+                limpa()
+            case 3:
+                limpa()
+                alterar_fornecedor_banco()
+                input()
+                limpa()
+            case 4:
+                limpa()
+                remover_fornecedor_banco()
+                input()
+                limpa()
+            case 5:
+                limpa()
+                pesquisa_fornecedor()
+                input()
+                limpa()
+            case 6:
+                break
+
+main_menu()
