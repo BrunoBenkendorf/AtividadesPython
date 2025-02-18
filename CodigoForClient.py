@@ -107,9 +107,9 @@ def exibir_clientes():
             clientes = cursor.fetchall()
             
             if clientes:
-                print(f"{'CPF':<14} {'Nome':<30} {'Email':<50} {'Telefone':<14}{'Cadastro':<14}{'Estado':<7}{'Cidade':<15}{'Bairro':<15}{'Rua':<30}{'Cep':<0}")
+                print(f"{'CPF':<14} {'Nome':<30} {'Email':<50} {'Telefone':<14}{'Cadastro':<14}{'Estado':<7}{'Cidade':<15}{'Bairro':<15}{'Rua':<30}{'Numero':<10}{'Cep':<0}")
                 for cliente in clientes:
-                    print(f"{cliente['cpf']:<14} {cliente['nome_cliente']:<30} {cliente['email_cliente']:<50} {cliente['telefone_cliente']:<14} {cliente['cadastro']:<14}{cliente['estado']:<7}{cliente['cidade']:<15}{cliente['bairro']:<15}{cliente['rua']:<30}{cliente['cep']:<0}")
+                    print(f"{cliente['cpf']:<14} {cliente['nome_cliente']:<30} {cliente['email_cliente']:<50} {cliente['telefone_cliente']:<14} {cliente['cadastro']:<14}{cliente['estado']:<7}{cliente['cidade']:<15}{cliente['bairro']:<15}{cliente['rua']:<30}{cliente['numero']:<10}{cliente['cep']:<0}")
             else:
                 print("Nenhum cliente encontrado no banco de dados.")
     except Exception:
@@ -205,10 +205,10 @@ def pesquisa_cliente():
                 clientes_encontrados = cursor.fetchall()
                 
                 if clientes_encontrados:
-                    print(f"\n{'CPF':<14} {'Nome':<30} {'Email':<50} {'Telefone':<14} {'Cadastro':<14} {'Estado':<7} {'Cidade':<15} {'Bairro':<15} {'Rua':<30} {'Cep':<10}")
+                    print(f"\n{'CPF':<14} {'Nome':<30} {'Email':<50} {'Telefone':<14} {'Cadastro':<14} {'Estado':<7} {'Cidade':<15} {'Bairro':<15} {'Rua':<30} {'Numero':<10} {'Cep':<10}")
                     print("-" * 230)  
                     for cliente in clientes_encontrados:
-                        print(f"{cliente['cpf']:<14} {cliente['nome_cliente']:<30} {cliente['email_cliente']:<50} {cliente['telefone_cliente']:<14} {cliente['cadastro']:<14} {cliente['estado']:<7} {cliente['cidade']:<15} {cliente['bairro']:<15} {cliente['rua']:<30} {cliente['cep']:<10}")
+                        print(f"{cliente['cpf']:<14} {cliente['nome_cliente']:<30} {cliente['email_cliente']:<50} {cliente['telefone_cliente']:<14} {cliente['cadastro']:<14} {cliente['estado']:<7} {cliente['cidade']:<15} {cliente['bairro']:<15} {cliente['rua']:<30} {cliente['numero']:<10} {cliente['cep']:<10}")
                     print("-" * 230)
                 else:
                     print(f"Nenhum cliente encontrado na região '{tipo_regiao}'.")
@@ -229,10 +229,10 @@ def pesquisa_cliente():
                 clientes_encontrados = cursor.fetchall()
                 
                 if clientes_encontrados:
-                    print(f"\n{'CPF':<14} {'Nome':<30} {'Email':<50} {'Telefone':<14} {'Cadastro':<14} {'Estado':<7} {'Cidade':<15} {'Bairro':<15} {'Rua':<30} {'Cep':<10}")
+                    print(f"\n{'CPF':<14} {'Nome':<30} {'Email':<50} {'Telefone':<14} {'Cadastro':<14} {'Estado':<7} {'Cidade':<15} {'Bairro':<15} {'Rua':<30} {'Numero':<10}  {'Cep':<10}")
                     print("-" * 230)
                     for cliente in clientes_encontrados:
-                        print(f"{cliente['cpf']:<14} {cliente['nome_cliente']:<30} {cliente['email_cliente']:<50} {cliente['telefone_cliente']:<14} {cliente['cadastro']:<14} {cliente['estado']:<7} {cliente['cidade']:<15} {cliente['bairro']:<15} {cliente['rua']:<30} {cliente['cep']:<10}")
+                        print(f"{cliente['cpf']:<14} {cliente['nome_cliente']:<30} {cliente['email_cliente']:<50} {cliente['telefone_cliente']:<14} {cliente['cadastro']:<14} {cliente['estado']:<7} {cliente['cidade']:<15} {cliente['bairro']:<15} {cliente['rua']:<30} {cliente['numero']:<10}  {cliente['cep']:<10}")
                     print("-" * 230)
                 else:
                     print(f"Nenhum cliente encontrado com o status de cadastro '{tipo_cadastro}'.")
@@ -310,9 +310,9 @@ def exibir_fornecedor():
             fornecedores = cursor.fetchall()
             
             if fornecedores:
-                print(f"{'CNPJ':<18} {'Nome':<30} {'Tipo':<14} {'Email':<35}{'Telefone':<21}{'Prazo de Pagamento':<15}")
+                print(f"{'CNPJ':<18} {'Nome':<30} {'Tipo':<14} {'Email':<35}{'Telefone':<21}{'Prazo de Pagamento':<20}{'Estado':<7}{'Cidade':<15}{'Bairro':<15}{'Rua':<30}{'Numero':<10}{'Cep':<0}")
                 for fornecedor in fornecedores:
-                    print(f"{fornecedor['cnpj']:<18} {fornecedor['nome_fornecedor']:<30} {fornecedor['tipo_fornecedor']:<14} {fornecedor['email_fornecedor']:<34} {fornecedor['telefone_fornecedor']:<21}{fornecedor['prazo_pagamento']:<30}")
+                    print(f"{fornecedor['cnpj']:<18} {fornecedor['nome_fornecedor']:<30} {fornecedor['tipo_fornecedor']:<14} {fornecedor['email_fornecedor']:<34} {fornecedor['telefone_fornecedor']:<21}{fornecedor['prazo_pagamento']:<30}{fornecedor['estado']:<7} {fornecedor['cidade']:<15} {fornecedor['bairro']:<15} {fornecedor['rua']:<30} {fornecedor['numero']:<10}  {fornecedor['cep']:<10}")
             else:
                 print("Nenhum fornecedor encontrado no banco de dados.")
     except Exception:
@@ -389,10 +389,10 @@ def pesquisa_fornecedor():
             fornecedores_encontrados = cursor.fetchall()
             
             if fornecedores_encontrados:
-                print(f"\n{'CNPJ':<18} {'Nome':<30} {'Tipo':<14} {'Email':<35} {'Telefone':<21} {'Prazo de Pagamento':<15}")
+                print(f"\n{'CNPJ':<18} {'Nome':<30} {'Tipo':<14} {'Email':<35} {'Telefone':<21} {'Prazo de Pagamento':<15}{'Estado':<7}{'Cidade':<15}{'Bairro':<15}{'Rua':<30}{'Numero':<10}{'Cep':<0}")
                 print("-" * 230)
                 for fornecedor in fornecedores_encontrados:
-                    print(f"{fornecedor['cnpj']:<18} {fornecedor['nome_fornecedor']:<30} {fornecedor['tipo_fornecedor']:<14} {fornecedor['email_fornecedor']:<34} {fornecedor['telefone_fornecedor']:<21} {fornecedor['prazo_pagamento']:<15}")
+                    print(f"{fornecedor['cnpj']:<18} {fornecedor['nome_fornecedor']:<30} {fornecedor['tipo_fornecedor']:<14} {fornecedor['email_fornecedor']:<34} {fornecedor['telefone_fornecedor']:<21} {fornecedor['prazo_pagamento']:<15}{fornecedor['estado']:<7} {fornecedor['cidade']:<15} {fornecedor['bairro']:<15} {fornecedor['rua']:<30} {fornecedor['numero']:<10}  {fornecedor['cep']:<10}")
                 print("-" * 230)
             else:
                 print(f"Nenhum fornecedor encontrado com o tipo '{tipo_fornecedor}'.")
@@ -429,6 +429,7 @@ def main_menu():
             break
 
 def menu_cliente():
+    limpa()
     while True:
         print("""
         -------------------------------------------
@@ -463,12 +464,16 @@ def menu_cliente():
                 limpa()
             case 3:
                 limpa()
-                alterar_cliente_banco()
+                cpf = input("Digite o cpf do cliente: ")
+                campo = input("Digite o campo(Email|Telefone|Cadastro|Estado|Cidade|Bairro|Rua|Numero):")
+                novo_campo = input("Digite o novo campo: ")
+                alterar_cliente_banco(cpf,campo,novo_campo)
                 input()
                 limpa()
             case 4:
                 limpa()
-                remover_cliente_banco()
+                cpf = input("Digite o cpf do cliente: ")
+                remover_cliente_banco(cpf)
                 input()
                 limpa()
             case 5:
@@ -477,10 +482,12 @@ def menu_cliente():
                 input()
                 limpa()
             case 6:
+                limpa()
                 break
 
 def menu_fornecedor():
     while True:
+        limpa()
         print("""
         -------------------------------------------
         |1- Adicionar                             |
@@ -514,12 +521,16 @@ def menu_fornecedor():
                 limpa()
             case 3:
                 limpa()
-                alterar_fornecedor_banco()
+                cnpj = input("Digite o cnpj do fornecedor: ")
+                campo = input("Digite o campo(Email|Telefone|Prazo|Estado|Cidade|Bairro|Rua|Numero):")
+                novo_campo = input("Digite o novo campo: ")
+                alterar_fornecedor_banco(cnpj,campo,novo_campo)
                 input()
                 limpa()
             case 4:
                 limpa()
-                remover_fornecedor_banco()
+                cnpj = input("Digite o cnpj do fornecedor:")
+                remover_fornecedor_banco(cnpj)
                 input()
                 limpa()
             case 5:
@@ -528,6 +539,7 @@ def menu_fornecedor():
                 input()
                 limpa()
             case 6:
+                limpa()
                 break
 
 main_menu()
